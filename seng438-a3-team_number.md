@@ -35,7 +35,9 @@ Text…
 
 # 6 Pros and Cons of coverage tools used and Metrics you report
 
-Text…
+A pro to working with EclEmma is its real-time feedback. Specifically the feature to highlight code that was executed and code that could have been executed. This feature helped identify what code still needed to be tested or sections of code that were unreachable. A con to this coverage tool would be its limitations to plug-ins. Specifically being unable to handle mocking plug-in. Since mocking is used for testing complex functions and methods, the inability to provide accurate coverage can lead to sections of code being misrepresented in the coverage.
+
+The metrics we used for this assignment were instruction coverage, branch coverage and method coverage. Method coverage replaced condition coverage as condition coverage was not a metric in our coverage tool
 
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
