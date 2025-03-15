@@ -45,7 +45,22 @@ The metrics we used for this assignment were instruction coverage, branch covera
 
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
-Text…
+Requirements-based test generation 
+- Advantages
+  - Ensures the code outputs aligns with the expected requirements 
+  - Can help with detecting early signs of defects
+- Disadvantages 
+  - Dependent on the quality of the requirements assuming it can cover edge/boundary cases 
+  - Can cause blind spots in code testing if quality of the requirements is not upheld
+
+Coverage-based test generation
+- Advantages
+  - Identifies untested areas of code 
+  - Can uncover issues undetected in requirement-based test generation
+  - Provides a higher consistency in test depth
+- Disadvantages 
+  - Coverage does not always equate to functionality
+  - Can create tests that do not align with requirements 
 
 # 8 A discussion on how the team work/effort was divided and managed
 
