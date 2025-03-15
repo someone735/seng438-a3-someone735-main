@@ -31,7 +31,10 @@ Text…
 
 # 5 A detailed report of the coverage achieved of each class and method (a screen shot from the code cover results in green and red color would suffice)
 
-Text…
+![image](https://github.com/user-attachments/assets/55e06694-9487-4668-9437-3617513ac563)
+![image](https://github.com/user-attachments/assets/6f1d5ca1-bf22-482c-adf0-b6e459efc36f)
+![image](https://github.com/user-attachments/assets/4117736e-2f99-443e-8958-89127746e1d0)
+
 
 # 6 Pros and Cons of coverage tools used and Metrics you report
 
