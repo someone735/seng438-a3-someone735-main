@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DataUtilitiesTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">org.jfree.data (Mar 14, 2025 10:05:31 p.m.)</a> &gt; <a href="../../index.html" class="el_group">JFreeChart_Lab3</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">org.jfree.data</a> &gt; <span class="el_source">DataUtilitiesTest.java</span></div><h1>DataUtilitiesTest.java</h1><pre class="source lang-java linenums">package org.jfree.data;
+
+import static org.junit.Assert.*;
+
+import org.jfree.data.DataUtilities;
+import org.jfree.data.*;
+import org.junit.*;
+
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+
+
+<span class="fc" id="L13">public class DataUtilitiesTest {</span>
+	
+	// calculateRowTotal Testing
+	@Test
+	        public void noMockSimpleCalculateRowTotal() {
+<span class="fc" id="L18">	                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L19">	                exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L20">	                exampleDataUlt.addValue(3.0, 1, 0);</span>
+	                
+<span class="fc" id="L22">	                double result = DataUtilities.calculateRowTotal(exampleDataUlt, 0);</span>
+<span class="fc" id="L23">	                assertEquals(1.0, result, .000000001d);</span>
+<span class="fc" id="L24">	        }</span>
+	        @Test
+	        public void noMocknegativeValueCalculateRowTotal() {
+<span class="fc" id="L27">	                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L28">	                exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L29">	                exampleDataUlt.addValue(-7.0, 1, 0);</span>
+	                
+<span class="fc" id="L31">	                double result = DataUtilities.calculateRowTotal(exampleDataUlt, 1);</span>
+<span class="fc" id="L32">	                assertEquals(-7.0, result, .000000001d);</span>
+<span class="fc" id="L33">	        }</span>
+	        
+	        @Test
+	        public void noMockCalculateRowTotalOf2x2Table() {
+<span class="fc" id="L37">	                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L38">	                exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L39">	                exampleDataUlt.addValue(5.0, 0, 1);</span>
+<span class="fc" id="L40">	                exampleDataUlt.addValue(7.0, 1, 0);</span>
+<span class="fc" id="L41">	                exampleDataUlt.addValue(11.0, 1, 1);</span>
+	                
+<span class="fc" id="L43">	                double result = DataUtilities.calculateRowTotal(exampleDataUlt, 1);</span>
+<span class="fc" id="L44">	                assertEquals(18.0, result, .000000001d);</span>
+<span class="fc" id="L45">	        }</span>
+
+	        //calculateColumnTotal
+	        
+	        @Test
+	        public void testSimpleColumnTotal() {
+<span class="fc" id="L51">	            DefaultKeyedValues2D data = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L52">	            data.addValue(2.0, 0, 0);</span>
+<span class="fc" id="L53">	            data.addValue(4.0, 1, 0);</span>
+
+<span class="fc" id="L55">	            double result = DataUtilities.calculateColumnTotal(data, 0);</span>
+<span class="fc" id="L56">	            assertEquals(6.0, result, .000000001d);</span>
+<span class="fc" id="L57">	        }</span>
+
+	        @Test
+	        public void testColumnTotalWithNegativeValues() {
+<span class="fc" id="L61">	            DefaultKeyedValues2D data = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L62">	            data.addValue(5.0, 0, 0);</span>
+<span class="fc" id="L63">	            data.addValue(-8.0, 1, 0);</span>
+
+<span class="fc" id="L65">	            double result = DataUtilities.calculateColumnTotal(data, 0);</span>
+<span class="fc" id="L66">	            assertEquals(-3.0, result, .000000001d);</span>
+<span class="fc" id="L67">	        }</span>
+
+	        @Test
+	        public void testColumnTotalFor2x2Matrix() {
+<span class="fc" id="L71">	            DefaultKeyedValues2D data = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L72">	            data.addValue(2.0, 0, 0);</span>
+<span class="fc" id="L73">	            data.addValue(6.0, 1, 0);</span>
+<span class="fc" id="L74">	            data.addValue(8.0, 0, 1);</span>
+<span class="fc" id="L75">	            data.addValue(10.0, 1, 1);</span>
+
+<span class="fc" id="L77">	            double result = DataUtilities.calculateColumnTotal(data, 1);</span>
+<span class="fc" id="L78">	            assertEquals(18.0, result, .000000001d);</span>
+<span class="fc" id="L79">	        }</span>
+
+	    
+	 // getCumulativePercentages Method Testing
+		 
+	    @Test
+	    public void testCumulativePercentagesWithSingleValue() {
+<span class="fc" id="L86">	        DefaultKeyedValues values = new DefaultKeyedValues();</span>
+<span class="fc" id="L87">	        values.addValue(&quot;A&quot;, 5);</span>
+
+<span class="fc" id="L89">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L91">	        assertEquals(&quot;The cumulative percentage of a single value should be 1.0&quot;, 1.0, result.getValue(&quot;A&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L92">	    }</span>
+
+	    @Test
+	    public void testCumulativePercentagesWithMultipleValues() {
+<span class="fc" id="L96">	        DefaultKeyedValues values = new DefaultKeyedValues();</span>
+<span class="fc" id="L97">	        values.addValue(&quot;A&quot;, 10);</span>
+<span class="fc" id="L98">	        values.addValue(&quot;B&quot;, 20);</span>
+<span class="fc" id="L99">	        values.addValue(&quot;C&quot;, 30);</span>
+
+<span class="fc" id="L101">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L103">	        assertEquals(0.1666666667, result.getValue(&quot;A&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L104">	        assertEquals(0.5, result.getValue(&quot;B&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L105">	        assertEquals(1.0, result.getValue(&quot;C&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L106">	    }</span>
+
+	    @Test
+	    public void testCumulativePercentagesWithZeroValues() {
+<span class="fc" id="L110">	        DefaultKeyedValues values = new DefaultKeyedValues();</span>
+<span class="fc" id="L111">	        values.addValue(&quot;A&quot;, 0);</span>
+<span class="fc" id="L112">	        values.addValue(&quot;B&quot;, 0);</span>
+<span class="fc" id="L113">	        values.addValue(&quot;C&quot;, 10);</span>
+
+<span class="fc" id="L115">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L117">	        assertEquals(0.0, result.getValue(&quot;A&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L118">	        assertEquals(0.0, result.getValue(&quot;B&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L119">	        assertEquals(1.0, result.getValue(&quot;C&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L120">	    }</span>
+
+	    @Test
+	    public void testCumulativePercentagesWithAllZeroes() {
+<span class="fc" id="L124">	        DefaultKeyedValues values = new DefaultKeyedValues();</span>
+<span class="fc" id="L125">	        values.addValue(&quot;A&quot;, 0);</span>
+<span class="fc" id="L126">	        values.addValue(&quot;B&quot;, 0);</span>
+<span class="fc" id="L127">	        values.addValue(&quot;C&quot;, 0);</span>
+
+<span class="fc" id="L129">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L131">	        assertTrue(Double.isNaN(result.getValue(&quot;A&quot;).doubleValue()));</span>
+<span class="fc" id="L132">	        assertTrue(Double.isNaN(result.getValue(&quot;B&quot;).doubleValue()));</span>
+<span class="fc" id="L133">	        assertTrue(Double.isNaN(result.getValue(&quot;C&quot;).doubleValue()));</span>
+<span class="fc" id="L134">	    }</span>
+
+	    @Test
+	    public void testCumulativePercentagesWithNullValues() {
+<span class="fc" id="L138">	        DefaultKeyedValues values = new DefaultKeyedValues();</span>
+<span class="fc" id="L139">	        values.addValue(&quot;A&quot;, 10);</span>
+<span class="fc" id="L140">	        values.addValue(&quot;B&quot;, null); </span>
+<span class="fc" id="L141">	        values.addValue(&quot;C&quot;, 30);</span>
+
+<span class="fc" id="L143">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L145">	        assertEquals(0.25, result.getValue(&quot;A&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L146">	        assertEquals(0.25, result.getValue(&quot;B&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L147">	        assertEquals(1.0, result.getValue(&quot;C&quot;).doubleValue(), .000000001d);</span>
+<span class="fc" id="L148">	    }</span>
+
+	    @Test
+	    public void testCumulativePercentagesWithEmptyDataset() {
+<span class="fc" id="L152">	        DefaultKeyedValues values = new DefaultKeyedValues(); </span>
+
+<span class="fc" id="L154">	        KeyedValues result = DataUtilities.getCumulativePercentages(values);</span>
+
+<span class="fc" id="L156">	        assertEquals(0, result.getItemCount()); </span>
+<span class="fc" id="L157">	    }</span>
+	    
+	
+		/**
+	 * Test for DataUtilities.createNumberArray with valid nonzero values.
+	 * This test verifies that the returned array is non-null, has the expected length,
+	 * and that each element matches the corresponding input value.
+	 */
+	@Test
+	public void createNumberArrayWithValidValues() {
+<span class="fc" id="L167">	    double[] input = {1.5, 2.5, 3.5};</span>
+<span class="fc" id="L168">	    Number[] result = DataUtilities.createNumberArray(input);</span>
+
+	    // Check that the result is not null and has the correct length.
+<span class="fc" id="L171">	    assertNotNull(&quot;Result should not be null&quot;, result);</span>
+<span class="fc" id="L172">	    assertEquals(&quot;Array length should match&quot;, input.length, result.length);</span>
+
+	    // Compare each value numerically (with a null-check).
+<span class="fc bfc" id="L175" title="All 2 branches covered.">	    for (int i = 0; i &lt; input.length; i++) {</span>
+<span class="fc" id="L176">	        assertNotNull(&quot;Element at index &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L177">	        assertEquals(&quot;Mismatch at index &quot; + i, input[i], result[i].doubleValue(), 0.00001);</span>
+	    }
+<span class="fc" id="L179">	}</span>
+
+	/**
+	 * Test for DataUtilities.createNumberArray with an empty input array.
+	 * Verifies that an empty input array returns an empty Number array.
+	 */
+	@Test
+	public void createNumberArrayWithEmptyArray() {
+<span class="fc" id="L187">	    double[] input = {};</span>
+<span class="fc" id="L188">	    Number[] expected = {};</span>
+<span class="fc" id="L189">	    Number[] result = DataUtilities.createNumberArray(input);</span>
+<span class="fc" id="L190">	    assertArrayEquals(&quot;Empty arrays should be equal&quot;, expected, result);</span>
+<span class="fc" id="L191">	}</span>
+
+	/**
+	 * Test for DataUtilities.createNumberArray with negative numbers.
+	 * This test checks that each negative value is properly converted.
+	 */
+	@Test
+	public void createNumberArrayWithNegativeNumbers() {
+<span class="fc" id="L199">	    double[] input = {-1.2, -2.3, -3.4};</span>
+<span class="fc" id="L200">	    Number[] result = DataUtilities.createNumberArray(input);</span>
+
+	    // Ensure array lengths match.
+<span class="fc" id="L203">	    assertEquals(&quot;Array length should match&quot;, input.length, result.length);</span>
+
+	    // Compare each element numerically, ensuring no element is null.
+<span class="fc bfc" id="L206" title="All 2 branches covered.">	    for (int i = 0; i &lt; input.length; i++) {</span>
+<span class="fc" id="L207">	        assertNotNull(&quot;Element at index &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L208">	        assertEquals(&quot;Mismatch at index &quot; + i, input[i], result[i].doubleValue(), 0.00001);</span>
+	    }
+<span class="fc" id="L210">	}</span>
+
+	/**
+	 * Test for DataUtilities.createNumberArray with zero values.
+	 * This test verifies that the returned array for zero values matches the expected values.
+	 */
+	@Test
+	public void createNumberArrayWithZeroValues() {
+<span class="fc" id="L218">	    double[] input = {0.0, 0.0, 0.0};</span>
+<span class="fc" id="L219">	    Number[] result = DataUtilities.createNumberArray(input);</span>
+
+<span class="fc" id="L221">	    assertNotNull(&quot;Result should not be null&quot;, result);</span>
+
+	    // Define expected output as a Double array.
+<span class="fc" id="L224">	    Double[] expected = {0.0, 0.0, 0.0};</span>
+<span class="fc" id="L225">	    assertArrayEquals(&quot;Arrays with zeroes should be equal&quot;, expected, result);</span>
+<span class="fc" id="L226">	}</span>
+	/**
+     * Test 5 for createNumberArray: Using assertArrayEquals directly.
+     * Purpose: Verify that the whole returned array exactly matches the expected array.
+     * (This test is concise but may fail if there’s a type mismatch.)
+     */
+    @Test
+    public void createNumberArrayAssertArrayEquals() {
+<span class="fc" id="L234">        double[] input = {3.3, 4.4, 5.5};</span>
+        // Explicitly declare expected as Double[] so that type matches.
+<span class="fc" id="L236">        Double[] expected = {3.3, 4.4, 5.5};</span>
+<span class="fc" id="L237">        Number[] result = DataUtilities.createNumberArray(input);</span>
+<span class="fc" id="L238">        assertArrayEquals(&quot;Arrays should be equal&quot;, expected, result);</span>
+<span class="fc" id="L239">    }</span>
+
+    /**
+     * Test for DataUtilities.createNumberArray2D with valid values.
+     * This test verifies that a 2D array of doubles is correctly converted to a 2D Number array.
+     */
+    @Test
+    public void createNumberArray2DWithValidValues() {
+<span class="fc" id="L247">        double[][] input = {</span>
+<span class="fc" id="L248">            {1.5, 2.5},</span>
+<span class="fc" id="L249">            {3.5, 4.5}</span>
+        };
+        // Define the expected 2D array. (You might need to use a loop to compare the rows if assertArrayEquals does not handle 2D arrays directly.)
+<span class="fc" id="L252">        Number[][] expected = {</span>
+<span class="fc" id="L253">            {1.5, 2.5},</span>
+<span class="fc" id="L254">            {3.5, 4.5}</span>
+        };
+
+<span class="fc" id="L257">        Number[][] result = DataUtilities.createNumberArray2D(input);</span>
+
+        // Verify that the result is not null.
+<span class="fc" id="L260">        assertNotNull(&quot;Result should not be null&quot;, result);</span>
+        // Check that the outer array length matches.
+<span class="fc" id="L262">        assertEquals(&quot;Outer array length should match&quot;, input.length, result.length);</span>
+
+        // Compare each row.
+<span class="fc bfc" id="L265" title="All 2 branches covered.">        for (int i = 0; i &lt; input.length; i++) {</span>
+            // Check that each row is not null and has the correct length.
+<span class="fc" id="L267">            assertNotNull(&quot;Row &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L268">            assertEquals(&quot;Row length for row &quot; + i + &quot; should match&quot;, input[i].length, result[i].length);</span>
+
+            // Compare each element in the row.
+<span class="fc bfc" id="L271" title="All 2 branches covered.">            for (int j = 0; j &lt; input[i].length; j++) {</span>
+<span class="fc" id="L272">                assertNotNull(&quot;Element at (&quot; + i + &quot;,&quot; + j + &quot;) should not be null&quot;, result[i][j]);</span>
+<span class="fc" id="L273">                assertEquals(&quot;Mismatch at (&quot; + i + &quot;,&quot; + j + &quot;)&quot;,</span>
+<span class="fc" id="L274">                             input[i][j], result[i][j].doubleValue(), 0.00001);</span>
+            }
+        }
+<span class="fc" id="L277">    }</span>
+
+    /**
+     * Test for DataUtilities.createNumberArray2D with an empty 2D array.
+     * Verifies that an empty 2D input array returns an empty 2D Number array.
+     */
+    @Test
+    public void createNumberArray2DWithEmptyArray() {
+<span class="fc" id="L285">        double[][] input = {};</span>
+<span class="fc" id="L286">        Number[][] expected = {};</span>
+<span class="fc" id="L287">        Number[][] result = DataUtilities.createNumberArray2D(input);</span>
+<span class="fc" id="L288">        assertArrayEquals(&quot;Empty 2D arrays should be equal&quot;, expected, result);</span>
+<span class="fc" id="L289">    }</span>
+    /**
+     * Test 3 for createNumberArray2D: 2D array with negative numbers.
+     * Purpose: Check that a 2D array containing negative values is converted correctly.
+     */
+    @Test
+    public void createNumberArray2DNegativeNumbers() {
+<span class="fc" id="L296">        double[][] input = {</span>
+<span class="fc" id="L297">            {-1.1, -2.2},</span>
+<span class="fc" id="L298">            {-3.3, -4.4}</span>
+        };
+<span class="fc" id="L300">        Number[][] result = DataUtilities.createNumberArray2D(input);</span>
+<span class="fc" id="L301">        assertNotNull(&quot;Result should not be null&quot;, result);</span>
+<span class="fc" id="L302">        assertEquals(&quot;Outer array length should match&quot;, input.length, result.length);</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        for (int i = 0; i &lt; input.length; i++) {</span>
+<span class="fc" id="L304">            assertNotNull(&quot;Row &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L305">            assertEquals(&quot;Row &quot; + i + &quot; length should match&quot;, input[i].length, result[i].length);</span>
+<span class="fc bfc" id="L306" title="All 2 branches covered.">            for (int j = 0; j &lt; input[i].length; j++) {</span>
+<span class="fc" id="L307">                assertNotNull(&quot;Element at (&quot; + i + &quot;,&quot; + j + &quot;) should not be null&quot;, result[i][j]);</span>
+<span class="fc" id="L308">                assertEquals(&quot;Mismatch at (&quot; + i + &quot;,&quot; + j + &quot;)&quot;,</span>
+<span class="fc" id="L309">                             input[i][j], result[i][j].doubleValue(), 0.00001);</span>
+            }
+        }
+<span class="fc" id="L312">    }</span>
+
+    /**
+     * Test 4 for createNumberArray2D: 2D array with all zero values.
+     * Purpose: Verify that a 2D array of zeros is converted correctly,
+     * with every element equal to 0.0.
+     */
+    @Test
+    public void createNumberArray2DZeroValues() {
+<span class="fc" id="L321">        double[][] input = {</span>
+<span class="fc" id="L322">            {0.0, 0.0},</span>
+<span class="fc" id="L323">            {0.0, 0.0}</span>
+        };
+<span class="fc" id="L325">        Number[][] result = DataUtilities.createNumberArray2D(input);</span>
+<span class="fc" id="L326">        assertNotNull(&quot;Result should not be null&quot;, result);</span>
+<span class="fc" id="L327">        assertEquals(&quot;Outer array length should match&quot;, input.length, result.length);</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">        for (int i = 0; i &lt; input.length; i++) {</span>
+<span class="fc" id="L329">            assertNotNull(&quot;Row &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L330">            assertEquals(&quot;Row &quot; + i + &quot; length should match&quot;, input[i].length, result[i].length);</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">            for (int j = 0; j &lt; input[i].length; j++) {</span>
+<span class="fc" id="L332">                assertNotNull(&quot;Element at (&quot; + i + &quot;,&quot; + j + &quot;) should not be null&quot;, result[i][j]);</span>
+<span class="fc" id="L333">                assertEquals(&quot;Mismatch at (&quot; + i + &quot;,&quot; + j + &quot;)&quot;,</span>
+<span class="fc" id="L334">                             input[i][j], result[i][j].doubleValue(), 0.00001);</span>
+            }
+        }
+<span class="fc" id="L337">    }</span>
+
+    /**
+     * Test 5 for createNumberArray2D: 2D array with mixed values.
+     * Purpose: Verify that a 2D array containing positive, negative, and zero values
+     * is converted correctly into a 2D Number array.
+     */
+    @Test
+    public void createNumberArray2DMixedValues() {
+<span class="fc" id="L346">        double[][] input = {</span>
+<span class="fc" id="L347">            {1.1, 0.0, -1.1},</span>
+<span class="fc" id="L348">            {2.2, -2.2, 0.0}</span>
+        };
+<span class="fc" id="L350">        Number[][] result = DataUtilities.createNumberArray2D(input);</span>
+<span class="fc" id="L351">        assertNotNull(&quot;Result should not be null&quot;, result);</span>
+<span class="fc" id="L352">        assertEquals(&quot;Outer array length should match&quot;, input.length, result.length);</span>
+<span class="fc bfc" id="L353" title="All 2 branches covered.">        for (int i = 0; i &lt; input.length; i++) {</span>
+<span class="fc" id="L354">            assertNotNull(&quot;Row &quot; + i + &quot; should not be null&quot;, result[i]);</span>
+<span class="fc" id="L355">            assertEquals(&quot;Row &quot; + i + &quot; length should match&quot;, input[i].length, result[i].length);</span>
+<span class="fc bfc" id="L356" title="All 2 branches covered.">            for (int j = 0; j &lt; input[i].length; j++) {</span>
+<span class="fc" id="L357">                assertNotNull(&quot;Element at (&quot; + i + &quot;,&quot; + j + &quot;) should not be null&quot;, result[i][j]);</span>
+<span class="fc" id="L358">                assertEquals(&quot;Mismatch at (&quot; + i + &quot;,&quot; + j + &quot;)&quot;,</span>
+<span class="fc" id="L359">                             input[i][j], result[i][j].doubleValue(), 0.00001);</span>
+            }
+        }
+<span class="fc" id="L362">    }</span>
+    
+	// clone(double[][]) 
+	
+    @Test
+    public void testCloneArrayWithEmptyData() {
+<span class="fc" id="L368">        double[][] originalArray = { {} };</span>
+<span class="fc" id="L369">        double[][] clonedArray = DataUtilities.clone(originalArray);</span>
+<span class="fc" id="L370">        assertArrayEquals(&quot;The cloned array should be an empty 2D array { {} } but it failed.&quot;, originalArray, clonedArray);</span>
+<span class="fc" id="L371">    }</span>
+
+    @Test
+    public void testCloneArrayWithNull() {
+<span class="fc" id="L375">        double[][] originalArray = { { 8, 12, 20 }, null };</span>
+<span class="fc" id="L376">        double[][] clonedArray = DataUtilities.clone(originalArray);</span>
+<span class="fc" id="L377">        assertArrayEquals(&quot;The cloned array should be { {8, 12, 20}, null } but it failed.&quot;, originalArray, clonedArray);</span>
+<span class="fc" id="L378">    }</span>
+
+ // equal testing
+    @Test
+    public void testEqualArrays() {
+<span class="fc" id="L383">            double[][] exampleArrayOne = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L384">                                                                           {4.0, 5.0, 6.0},</span>
+<span class="fc" id="L385">                                                                           {7.0, 8.0, 9.0}};</span>
+<span class="fc" id="L386">            double[][] exampleArrayTwo = exampleArrayOne;</span>
+<span class="fc" id="L387">            boolean result = DataUtilities.equal(exampleArrayOne, exampleArrayTwo);</span>
+<span class="fc" id="L388">            assertTrue(result);</span>
+<span class="fc" id="L389">    }</span>
+    @Test
+    public void testEqualWithNullInputA() {
+<span class="fc" id="L392">            double[][] exampleArrayOne = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L393">                                   {4.0, 5.0, 6.0},</span>
+<span class="fc" id="L394">                                   {7.0, 8.0, 9.0}};</span>
+<span class="fc" id="L395">            boolean result = DataUtilities.equal(null, exampleArrayOne);</span>
+<span class="fc" id="L396">            assertFalse(result);</span>
+<span class="fc" id="L397">    }</span>
+    @Test
+    public void testEqualWithNullInputB() {
+<span class="fc" id="L400">            double[][] exampleArrayOne = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L401">                                   {4.0, 5.0, 6.0},</span>
+<span class="fc" id="L402">                                   {7.0, 8.0, 9.0}};</span>
+<span class="fc" id="L403">            boolean result = DataUtilities.equal(exampleArrayOne, null);</span>
+<span class="fc" id="L404">            assertFalse(result);</span>
+<span class="fc" id="L405">    }</span>
+   
+    @Test
+    public void testEqualWithNullInputBoth() {
+<span class="fc" id="L409">            boolean result = DataUtilities.equal(null, null);</span>
+<span class="fc" id="L410">            assertTrue(result);</span>
+<span class="fc" id="L411">    }</span>
+   
+    @Test
+    public void testEqualWithUnequalLengthsCol() {
+<span class="fc" id="L415">            double[][] exampleArrayOne = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L416">                                                                           {4.0, 5.0, 6.0},</span>
+<span class="fc" id="L417">                                                                           {7.0, 8.0, 9.0}};</span>
+<span class="fc" id="L418">            double[][] exampleArrayTwo = {{1.0, 2.0},</span>
+<span class="fc" id="L419">                                                                           {4.0, 5.0},</span>
+<span class="fc" id="L420">                                                                           {7.0, 8.0}};</span>
+<span class="fc" id="L421">            boolean result = DataUtilities.equal(exampleArrayOne, exampleArrayTwo);</span>
+<span class="fc" id="L422">            assertFalse(result);</span>
+<span class="fc" id="L423">    }</span>
+   
+    @Test
+    public void testEqualWithUnequalLengthsRow() {
+<span class="fc" id="L427">            double[][] exampleArrayOne = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L428">                                                                           {4.0, 5.0, 6.0},</span>
+<span class="fc" id="L429">                                                                           {7.0, 8.0, 9.0}};</span>
+<span class="fc" id="L430">            double[][] exampleArrayTwo = {{1.0, 2.0, 3.0},</span>
+<span class="fc" id="L431">                                                                           {4.0, 5.0, 6.0}};</span>
+<span class="fc" id="L432">            boolean result = DataUtilities.equal(exampleArrayOne, exampleArrayTwo);</span>
+<span class="fc" id="L433">            assertFalse(result);</span>
+<span class="fc" id="L434">    }</span>
+    
+ // CalculateRowTotalValidCols testing
+    @Test
+            public void noMockSimpleCalculateRowTotalNullValidCols() {
+<span class="fc" id="L439">                    DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L440">                    exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L441">                    exampleDataUlt.addValue(3.0, 1, 0);</span>
+<span class="fc" id="L442">                    int[] validColumns = {};</span>
+<span class="fc" id="L443">                    double result = DataUtilities.calculateRowTotal(exampleDataUlt, 0, validColumns);</span>
+<span class="fc" id="L444">                    assertEquals(0.0, result, .000000001d);</span>
+<span class="fc" id="L445">            }</span>
+            
+            @Test
+            public void noMockSimpleCalculateRowTotalValidCols() {
+<span class="fc" id="L449">                    DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L450">                    exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L451">                    exampleDataUlt.addValue(3.0, 1, 0);</span>
+<span class="fc" id="L452">                    int[] validColumns = {0};</span>
+<span class="fc" id="L453">                    double result = DataUtilities.calculateRowTotal(exampleDataUlt, 0, validColumns);</span>
+<span class="fc" id="L454">                    assertEquals(1.0, result, .000000001d);</span>
+<span class="fc" id="L455">            }</span>
+            @Test
+            public void noMocknegativeValueCalculateRowTotalValidCols() {
+<span class="fc" id="L458">                    DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L459">                    exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L460">                    exampleDataUlt.addValue(-7.0, 1, 0);</span>
+<span class="fc" id="L461">                    int[] validColumns = {0};</span>
+<span class="fc" id="L462">                    double result = DataUtilities.calculateRowTotal(exampleDataUlt, 1, validColumns);</span>
+<span class="fc" id="L463">                    assertEquals(-7.0, result, .000000001d);</span>
+<span class="fc" id="L464">            }</span>
+            
+            @Test
+            public void noMockCalculateRowTotalOf3x2TableValidCols() {
+<span class="fc" id="L468">                    DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L469">                    exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L470">                    exampleDataUlt.addValue(5.0, 0, 1);</span>
+<span class="fc" id="L471">                    exampleDataUlt.addValue(7.0, 1, 0);</span>
+<span class="fc" id="L472">                    exampleDataUlt.addValue(11.0, 1, 1);</span>
+<span class="fc" id="L473">                    exampleDataUlt.addValue(7.0, 2, 0);</span>
+<span class="fc" id="L474">                    exampleDataUlt.addValue(11.0, 2, 1);</span>
+<span class="fc" id="L475">                    int[] validColumns = {1};</span>
+<span class="fc" id="L476">                    double result = DataUtilities.calculateRowTotal(exampleDataUlt, 1, validColumns);</span>
+<span class="fc" id="L477">                    assertEquals(11.0, result, .000000001d);</span>
+<span class="fc" id="L478">            }</span>
+            
+         // CalculateColumnTotal testing
+
+            @Test
+            public void noMockSimpleCalculateColumnTotalNullValidRows() {
+                // Test with no valid rows (empty validRows array)
+<span class="fc" id="L485">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L486">                exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L487">                exampleDataUlt.addValue(3.0, 1, 0);</span>
+<span class="fc" id="L488">                int[] validRows = {};</span>
+<span class="fc" id="L489">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L490">                assertEquals(0.0, result, .000000001d); // No rows selected, should be 0</span>
+<span class="fc" id="L491">            }</span>
+
+            @Test
+            public void noMockSimpleCalculateColumnTotalValidRows() {
+                // Test with one valid row and one column
+<span class="fc" id="L496">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L497">                exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L498">                exampleDataUlt.addValue(3.0, 1, 0);</span>
+<span class="fc" id="L499">                int[] validRows = {0};</span>
+<span class="fc" id="L500">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L501">                assertEquals(1.0, result, .000000001d); // Only the value at row 0, column 0 should be included</span>
+<span class="fc" id="L502">            }</span>
+
+            @Test
+            public void noMockNegativeValueCalculateColumnTotalValidRows() {
+                // Test with negative values in the column
+<span class="fc" id="L507">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L508">                exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L509">                exampleDataUlt.addValue(-7.0, 1, 0);</span>
+<span class="fc" id="L510">                int[] validRows = {0, 1};</span>
+<span class="fc" id="L511">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L512">                assertEquals(-4.0, result, .000000001d); // 3.0 + (-7.0) = -4.0</span>
+<span class="fc" id="L513">            }</span>
+
+            @Test
+            public void noMockCalculateColumnTotalOf3x2TableValidRows() {
+                // Test with a 3x2 table, checking a specific column with valid rows
+<span class="fc" id="L518">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L519">                exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L520">                exampleDataUlt.addValue(5.0, 0, 1);</span>
+<span class="fc" id="L521">                exampleDataUlt.addValue(7.0, 1, 0);</span>
+<span class="fc" id="L522">                exampleDataUlt.addValue(11.0, 1, 1);</span>
+<span class="fc" id="L523">                exampleDataUlt.addValue(7.0, 2, 0);</span>
+<span class="fc" id="L524">                exampleDataUlt.addValue(11.0, 2, 1);</span>
+<span class="fc" id="L525">                int[] validRows = {0, 1, 2}; // All rows are valid</span>
+<span class="fc" id="L526">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L527">                assertEquals(17.0, result, .000000001d); // 3.0 + 7.0 + 7.0 = 17.0</span>
+<span class="fc" id="L528">            }</span>
+
+            @Test
+            public void noMockCalculateColumnTotalWithOutOfRangeRow() {
+                // Test with an out-of-range row in the validRows array
+<span class="fc" id="L533">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L534">                exampleDataUlt.addValue(1.0, 0, 0);</span>
+<span class="fc" id="L535">                exampleDataUlt.addValue(3.0, 1, 0);</span>
+<span class="fc" id="L536">                int[] validRows = {0, 10}; // Row 10 does not exist</span>
+<span class="fc" id="L537">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L538">                assertEquals(1.0, result, .000000001d); // Only row 0 should contribute</span>
+<span class="fc" id="L539">            }</span>
+
+            @Test
+            public void noMockCalculateColumnTotalAllRowsInvalid() {
+                // Test with no valid rows (invalid validRows array)
+<span class="fc" id="L544">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L545">                exampleDataUlt.addValue(3.0, 0, 0);</span>
+<span class="fc" id="L546">                exampleDataUlt.addValue(5.0, 0, 1);</span>
+<span class="fc" id="L547">                exampleDataUlt.addValue(7.0, 1, 0);</span>
+<span class="fc" id="L548">                exampleDataUlt.addValue(11.0, 1, 1);</span>
+<span class="fc" id="L549">                int[] validRows = {}; // No valid rows</span>
+<span class="fc" id="L550">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L551">                assertEquals(0.0, result, .000000001d); // No rows selected, total should be 0</span>
+<span class="fc" id="L552">            }</span>
+
+            @Test
+            public void noMockCalculateColumnTotalNullValues() {
+                // Test when the values in the column are null
+<span class="fc" id="L557">                DefaultKeyedValues2D exampleDataUlt = new DefaultKeyedValues2D();</span>
+<span class="fc" id="L558">                exampleDataUlt.addValue(null, 0, 0);</span>
+<span class="fc" id="L559">                exampleDataUlt.addValue(null, 1, 0);</span>
+<span class="fc" id="L560">                int[] validRows = {0, 1};</span>
+<span class="fc" id="L561">                double result = DataUtilities.calculateColumnTotal(exampleDataUlt, 0, validRows);</span>
+<span class="fc" id="L562">                assertEquals(0.0, result, .000000001d); // No valid values, total should be 0</span>
+<span class="fc" id="L563">            }</span>
+            
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span>org.jfree.data (Mar 14, 2025 10:05:31 p.m.)</div></body></html>
