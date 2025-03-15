@@ -49,7 +49,7 @@ Text…
 
 # 9 Any difficulties encountered, challenges overcome, and lessons learned from performing the lab
 
-Text…
+One of the main difficulties we had as a group is that some of the methods cannot reach 100% coverage due to infeasible paths (sections of code that could not be run). This highlighted the challenge of testing flawed implementations and the importance of analyzing coverage reports to identify dead code. Another challenge that our group faced was specifically within the DataUtilities where we had to change our code from lab 2 that used mocking to using real implementations instead. Without using real implementations, we could not get any coverage because mocks do not execute the actual method logic. Rewriting the tests using real implementations helped contribute to overcoming the issues and improving coverage. 
 
 # 10 Comments/feedback on the lab itself
 
