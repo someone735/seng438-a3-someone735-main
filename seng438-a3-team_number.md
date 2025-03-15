@@ -53,4 +53,4 @@ One of the main difficulties we had as a group is that some of the methods canno
 
 # 10 Comments/feedback on the lab itself
 
-Text…
+Overall this lab helped us dive deeper into the internal structure of what we did in lab 2 using white box testing instead of black box. We learnt how to use EclEmma which is a tool that tells us the code coverage. The transition from mock-based to real object testing clarified how using these coverage tools work and why direct execution is necessary for accurate metrics. We just had problems with certain parts of methods that contained unreachable code so we cannot get them to 100% coverage. This lab was insightful and reinforced the role of structured testing in software. 
