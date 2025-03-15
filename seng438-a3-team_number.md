@@ -19,7 +19,12 @@ The primary goal of this lab is to explore white box testing using the JUnit fra
 
 # 2 Manual data-flow coverage calculations for X and Y methods
 
-Text…
+calculateTotalColumn
+![image](https://github.com/user-attachments/assets/d67a8e4a-943e-471c-a4fd-38f7b22370c1)
+![image](https://github.com/user-attachments/assets/8c2c1133-ab87-426c-9c97-cd87be7e7247)
+![image](https://github.com/user-attachments/assets/a21f603f-cecd-496a-b06c-868a1c66c0ca)
+
+![image](https://github.com/user-attachments/assets/c8eaeb66-c986-4d78-9215-98236b32b43f)
 
 # 3 A detailed description of the testing strategy for the new unit test
 
