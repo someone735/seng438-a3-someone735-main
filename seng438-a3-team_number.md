@@ -87,8 +87,11 @@ Coverage-based test generation
 We as a group decided to first work on the methods that we did in lab 2 that did not fully get 100% coverage. So the person that worked on the method in lab 2 works on it for lab 3 as well if it is not already full coverage. For newer methods we created, we decided to just split it evenly where everyone gets 3 and 1 person gets 4. 
 
 Ron - 3 additional methods: scale, shift, clone
+
 Lana - 3 additional methods: hashCode, isNaNRange, expandToInclude
+
 John - 4 additional methods: combineIgnoreNaN, range equals, expand, dataUtilities equal 
+
 Mark - 3 additional methods: getLength, getLowerBound, getUpperBound
 
 # 9 Any difficulties encountered, challenges overcome, and lessons learned from performing the lab
