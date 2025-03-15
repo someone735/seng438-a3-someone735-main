@@ -27,7 +27,22 @@ Our testing strategy was analysing the old unit tests and the coverage they cove
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
 
-Text…
+Range - expandToInclude
+In assignment 2 there were several tests that cover multiple methods such as constrain and combine,etc. Without including the expandToInclude, by writing targeted tests for the expandToInclude method, we ensure that every part of its logic is executed and verified. This means we check what happens when the input range is null, when the value is already within the range, when it’s lower than the current lower bound, or higher than the current upper bound, as well as handling special cases like NaN.
+
+DataUtilities - calculateRowTotal 
+Since this method was mainly tested using Mockery which does not work with our current coverage tool, I recreated the tests without using Mockery. After the analysis of these tests using the coverage tool, I found that there were some areas that the old test cases could not reach. The reason for this is because in the calculateRowTotal, there existed a for loop functioning on a condition which would always be false, thus never executing the code inside the for loop. As a result, the instruction coverage for this method would never be 100%.
+
+DataUtilities - getCumulativePercentages
+In lab 2, this method was tested using mocking which does not work for coverage. I changed the tests to work for lab 3 which uses no mocking. I replaced the mocks with DefaultKeyedValues, allowing the method to execute properly and improving coverage. Full branch coverage is not possible due to a bugged loop, overall they increased all code coverages. 
+
+DataUtilities - calculateColumnTotal
+Mocking was used in the previous assignment which mocked test values which made black box testing simpler. This approach however did not contribute to code coverage at all considering that all of the test cases were using mocking. We used real implementations instead of mocks for this lab about white box testing and the coverage metrics were improved. 
+
+
+DataUtilities - calculateRowTotal - overload method 
+When using the coverage tool, it was found that calculateRowTotal had an overloaded method which took in an additional parameter called validColumns. Using this information, we were able to create additional test cases that used the new parameter, thus increasing our overall code coverage.
+
 
 # 5 A detailed report of the coverage achieved of each class and method (a screen shot from the code cover results in green and red color would suffice)
 
