@@ -15,7 +15,7 @@ for each group. Please see each lab document for details.)
 
 # 1 Introduction
 
-Text…
+The primary goal of this lab is to explore white box testing using the JUnit framework, along with using EclEmma (coverage tool) that measures how thoroughly our test suite exercises the code. This lab will tell us what we have missed and what have we done for coverage in lab 2 as we dive deeper to learn about the interal structure of the software. This lab will ensure us that all logical statements, branches, and conditions are adequately tested. 
 
 # 2 Manual data-flow coverage calculations for X and Y methods
 
