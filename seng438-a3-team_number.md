@@ -23,7 +23,7 @@ Text…
 
 # 3 A detailed description of the testing strategy for the new unit test
 
-Text…
+Our testing strategy was analysing the old unit tests and the coverage they covered and creating new unit tests that would help the previous tests to full coverage. If the methods were not tested in the assignment 2 and thus do not have any pre-existing unit tests, then in using the coverage tools and the given code, create unit tests that aim for the full coverage of the targeted method. 
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
 
