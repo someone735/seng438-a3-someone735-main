@@ -35,6 +35,7 @@ Text…
 ![image](https://github.com/user-attachments/assets/6f1d5ca1-bf22-482c-adf0-b6e459efc36f)
 ![image](https://github.com/user-attachments/assets/4117736e-2f99-443e-8958-89127746e1d0)
 
+The reason as to why the coverage in getLength, calculateRowTotal, calculateColumnTotal, getUpperBound, getCumulativePercentage are not 100% is because when trying to understand why our tests could not get full 100%, we discovered that there were sections of code that could never be run thus not being able to achieve 100% coverage. This will result in the statement and branch coverage significantly affecting the entirety of the total coverage. Given that multiple methods are affected by this error/bug, the total coverage for all tests will not represent the actual coverage. 
 
 # 6 Pros and Cons of coverage tools used and Metrics you report
 
